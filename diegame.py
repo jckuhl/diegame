@@ -1,6 +1,8 @@
 from die import Dice
-from roller import Roller
+from roller import Roller, DieTooLargeError
 from time import sleep
+import re
+
 
 def game():
     prompt = ''
@@ -11,12 +13,19 @@ def game():
                              ' where x is the number of die and\n'
                              ' y is the number of sides per die\n')
             # TODO: string validation
-            roller = Roller(dice_str)
-            print('Rolling . . .\n')
-            sleep(1)
-            roller.roll()
-            print('Here are your rolls\n')
-            print(str(roller))
+            pattern = re.compile(r'\d+d\d+')
+            if pattern.match(dice_str) != None:
+                try:
+                    roller = Roller(dice_str)
+                    print('Rolling . . .\n')
+                    sleep(1)
+                    roller.roll()
+                    print('Here are your rolls\n')
+                    print(roller)
+                except DieTooLargeError:
+                    print(DieTooLargeError.getMessage());
+            else:
+                print('Try again.  The format is XdY')
 
 if __name__ == '__main__':
     game()

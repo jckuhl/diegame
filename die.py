@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 class Dice:
 
@@ -7,7 +7,7 @@ class Dice:
         self.value = 0
 
     def roll(self):
-        self.value = random.randint(1, self.sides)
+        self.value = randint(1, self.sides)
         return self.value
 
     def __str__(self):
