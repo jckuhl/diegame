@@ -11,7 +11,6 @@ def game():
             dice_str = input('Enter a dice value in the format XdY\n'
                              ' where x is the number of die and\n'
                              ' y is the number of sides per die\n')
-            # TODO: string validation
             pattern = re.compile(r'\d+d\d+')
             if pattern.match(dice_str) != None:
                 dice = dice_str.split('d')
