@@ -1,5 +1,4 @@
-from die import Dice
-from roller import Roller, DieTooLargeError
+from roller import Roller
 from time import sleep
 import re
 
@@ -15,15 +14,18 @@ def game():
             # TODO: string validation
             pattern = re.compile(r'\d+d\d+')
             if pattern.match(dice_str) != None:
-                try:
-                    roller = Roller(dice_str)
+                dice = dice_str.split('d')
+                dice_sides = abs(int(dice[1]))
+                num_dice = abs(int(dice[0]))
+                if(dice_sides < 100 and num_dice < 100):
+                    roller = Roller(num_dice, dice_sides)
                     print('Rolling . . .\n')
                     sleep(1)
                     roller.roll()
                     print('Here are your rolls\n')
                     print(roller)
-                except DieTooLargeError:
-                    print(DieTooLargeError.getMessage());
+                else:
+                    print('Your values are too big, try again')
             else:
                 print('Try again.  The format is XdY')
 
